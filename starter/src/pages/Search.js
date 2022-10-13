@@ -31,7 +31,7 @@ const Search = () => {
 
   const updatedBooks = query.map((query) => {
     ownedBooks.map((book) => {
-        if(book.title === query.title) {
+        if(book.id === query.id) {
           query.shelf = book.shelf;
         } 
       
