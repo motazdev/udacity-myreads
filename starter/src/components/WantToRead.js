@@ -1,9 +1,6 @@
+import PropTypes from "prop-types";
 
 const WantToRead = ({ isLoading, books, addToShelf }) => {
-
-
-
-    
 
     return (
         <div className="bookshelf">
@@ -51,5 +48,9 @@ const WantToRead = ({ isLoading, books, addToShelf }) => {
         </div>        
     );
 }
- 
+
+WantToRead.propTypes = {
+  books: PropTypes.array.isRequired,
+  addToShelf: PropTypes.func.isRequired,
+};
 export default WantToRead;
