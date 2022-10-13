@@ -49,7 +49,8 @@ const Home = () => {
             await update(book, data[0])
             getComponentBooks()
         } else {
-            console.log("none bro")
+          await update(book, data[0])
+          getComponentBooks()
         }
 
       }
