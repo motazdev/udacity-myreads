@@ -19,7 +19,12 @@ const Search = () => {
     const que = e.target.value;
     if(que.length > 0) {
       search(que).then((results) => {
-        setQuery(results)
+        
+        if (results.error !== 'empty query' && que !== "") {
+          setQuery(results)
+        } else {
+          setQuery([])
+        }
       })
     }
   }
