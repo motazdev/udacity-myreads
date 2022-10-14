@@ -1,6 +1,3 @@
-// import CurrentlyReading from "../components/CurrentlyReading";
-// import WantToRead from "../components/WantToRead";
-// import Read from "../components/Read";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Shelf from "../components/Shelf";

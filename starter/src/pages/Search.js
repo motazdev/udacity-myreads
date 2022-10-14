@@ -6,9 +6,6 @@ const Search = () => {
   const [query, setQuery] = useState([]);
   const [ownedBooks, setOwnedBooks] = useState([]);
 
-  const [ inputSearch, setInputSearch ] = useState("")
-  const [ noBooks, setNoBooks ] = useState(false)
-
 
   useEffect(() => {
     getAll().then((books) => {
@@ -19,17 +16,11 @@ const Search = () => {
 
   const fetchBooks = async (e) => {
     const que = e.target.value;
-    setInputSearch(que)
     if(que.length > 0) {
       search(que).then((results) => {
         if (results.error !== 'empty query' && que !== "") {
           setQuery(results)
-          setNoBooks(false)
         } else {
-          setQuery([])
-          setNoBooks(true)
-        }
-        if(inputSearch.length === 0) {
           setQuery([])
         }
       })
@@ -93,11 +84,6 @@ const Search = () => {
           </div>
         </div>
         <div className="search-books-results">
-          { noBooks && inputSearch.length > 0 && 
-            <div className="no-viewed-books">
-              <h3>No results found for {inputSearch}</h3>
-            </div>
-          }
         <ol className="books-grid">
         { updatedBooks &&
           updatedBooks.map((book) => (
