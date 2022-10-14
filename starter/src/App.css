@@ -175,3 +175,9 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+
+.no-viewed-books {
+  display: flex;
+  justify-content: center;
+}

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { search, update, get, getAll }  from "../BooksAPI";
-import BookShelf from "../components/BookShelf";
 const Search = () => {
 
   const [query, setQuery] = useState([]);
   const [ownedBooks, setOwnedBooks] = useState([]);
+
+  const [ inputSearch, setInputSearch ] = useState("")
+  const [ noBooks, setNoBooks ] = useState(false)
 
 
   useEffect(() => {
@@ -17,15 +19,23 @@ const Search = () => {
 
   const fetchBooks = async (e) => {
     const que = e.target.value;
+    setInputSearch(que)
     if(que.length > 0) {
       search(que).then((results) => {
-        
         if (results.error !== 'empty query' && que !== "") {
           setQuery(results)
+          setNoBooks(false)
         } else {
+          setQuery([])
+          setNoBooks(true)
+        }
+        if(inputSearch.length === 0) {
           setQuery([])
         }
       })
+
+    } else {
+      setQuery([])
     }
   }
 
@@ -83,23 +93,39 @@ const Search = () => {
           </div>
         </div>
         <div className="search-books-results">
+          { noBooks && inputSearch.length > 0 && 
+            <div className="no-viewed-books">
+              <h3>No results found for {inputSearch}</h3>
+            </div>
+          }
         <ol className="books-grid">
         { updatedBooks &&
           updatedBooks.map((book) => (
             <li key={book.id}>
               <div className="book">
                 <div className="book-top">
+                  {book.imageLinks && 
                   <div
-                    className="book-cover"
-                    style={{
-                      width: 128,
-                      height: 193,
-                      backgroundImage:
-                        `url(${book.imageLinks.smallThumbnail})`,
-                    }}
-                  ></div>
+                  className="book-cover"
+                  style={{
+                    width: 128,
+                    height: 193,
+                    backgroundImage:
+                      `url(${book.imageLinks.smallThumbnail})`,
+                  }}
+                  ></div>                  
+                  }
+
                   <div className="book-shelf-changer">
-                    <BookShelf addToShelf={addToShelf} book={book} />
+                    <select onChange={addToShelf} defaultValue={book.shelf ? book.shelf : "none"} className={`${book.shelf}-class`} id={book.id}>
+                        <option value="emptyshelf" disabled>
+                        Move to...  
+                        </option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                    </select>
                   </div>
                 </div>
                 <div className="book-title">{book.title}</div>

@@ -1,8 +1,9 @@
-import CurrentlyReading from "../components/CurrentlyReading";
-import WantToRead from "../components/WantToRead";
-import Read from "../components/Read";
+// import CurrentlyReading from "../components/CurrentlyReading";
+// import WantToRead from "../components/WantToRead";
+// import Read from "../components/Read";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Shelf from "../components/Shelf";
 import { update, get, getAll }  from "../BooksAPI";
 const Home = () => {
 
@@ -74,11 +75,14 @@ const Home = () => {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <CurrentlyReading addToShelf={addToShelf} isLoading={isLoading} books={currReading} />
+                    <Shelf addToShelf={addToShelf} isLoading={isLoading} books={currReading} title={"Currently Reading"} />
+                    <Shelf addToShelf={addToShelf} isLoading={isLoading} books={wantToRead} title={"Want To Read"} />
+                    <Shelf addToShelf={addToShelf} isLoading={isLoading} books={read} title={"Read"} />
+                    {/* <CurrentlyReading addToShelf={addToShelf} isLoading={isLoading} books={currReading} /> */}
                 
-                    <WantToRead addToShelf={addToShelf} isLoading={isLoading} books={wantToRead} />
+                    {/* <WantToRead addToShelf={addToShelf} isLoading={isLoading} books={wantToRead} />
 
-                    <Read addToShelf={addToShelf} isLoading={isLoading} books={read} />
+                    <Read addToShelf={addToShelf} isLoading={isLoading} books={read} /> */}
                 </div>
                 <div className="open-search">
                     <Link to="/search">Add a book</Link>
